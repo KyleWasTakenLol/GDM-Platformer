@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.jumpSound);
         }
     }
 
@@ -48,11 +49,11 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other)
+{
+    if (other.CompareTag("coin"))
     {
-        if (other.CompareTag("coin"))
-        {
-            GameManager.Instance.AddScore(10);
-            Destroy(other.gameObject);
-        }
+        GameManager.Instance.AddScore(10);
+        CoinPoolManager.Instance.ReturnCoin(other.gameObject);
     }
+}
 }

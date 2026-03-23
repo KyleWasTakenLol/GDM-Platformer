@@ -13,11 +13,10 @@ public class GameOverController : MonoBehaviour
     }
 
     public void Retry()
-    {
-        GameManager.Instance.ResetGame();
-        SceneManager.LoadScene("GameScene");
-    }
-
+{
+    GameManager.Instance.ResetGame();
+    SceneManager.LoadScene("GameScene");
+}
     public void ReturnToMenu()
     {
         SceneManager.LoadScene("MainMenu");
