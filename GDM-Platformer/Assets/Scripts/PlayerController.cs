@@ -55,5 +55,10 @@ public class PlayerController : MonoBehaviour
         GameManager.Instance.AddScore(10);
         CoinPoolManager.Instance.ReturnCoin(other.gameObject);
     }
+
+    if (other.CompareTag("deathzone"))
+    {
+        GameManager.Instance.TriggerGameOver();
+    }
 }
 }

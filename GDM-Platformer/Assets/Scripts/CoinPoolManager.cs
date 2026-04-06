@@ -55,11 +55,15 @@ public class CoinPoolManager : MonoBehaviour
     }
 
     public void ReturnCoin(GameObject coin)
-    {
-        coinPool.Return(coin);
-        activeCoins.Remove(coin);
-    }
+{
+    coinPool.Return(coin);
+    activeCoins.Remove(coin);
 
+    if (activeCoins.Count == 0)
+    {
+        GameManager.Instance.TriggerGameOver();
+    }
+}
     public void ResetAllCoins()
     {
         foreach (GameObject coin in activeCoins)

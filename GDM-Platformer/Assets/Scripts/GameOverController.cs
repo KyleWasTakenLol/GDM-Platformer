@@ -5,6 +5,7 @@ using TMPro;
 public class GameOverController : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TMP_InputField playerNameInput;
 
     void Start()
     {
@@ -12,13 +13,26 @@ public class GameOverController : MonoBehaviour
         scoreText.text = "Final Score: " + finalScore;
     }
 
-    public void Retry()
-{
-    GameManager.Instance.ResetGame();
-    SceneManager.LoadScene("GameScene");
-}
-    public void ReturnToMenu()
+    public void OnSubmitScore()
     {
-        SceneManager.LoadScene("MainMenu");
+        string playerName = playerNameInput.text;
+
+        if (string.IsNullOrEmpty(playerName))
+        {
+            playerName = "Anonymous";
+        }
+
+        int finalScore = GameManager.Instance.GetScore();
+        float completionTime = Time.timeSinceLevelLoad;
+
+        DatabaseManager.Instance.SaveHighScore(playerName, finalScore, completionTime);
+
+        SceneManager.LoadScene("HighScores");
+    }
+
+    public void Retry()
+    {
+        GameManager.Instance.ResetGame();
+        SceneManager.LoadScene("GameScene");
     }
 }
